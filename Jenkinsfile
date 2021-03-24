@@ -22,6 +22,7 @@ pipeline {
             steps {
                 sh(script: """
                 docker-compose up -d
+                chmod 777 scripts/test_container.sh
                 ./scripts/test_container.sh
                 """)
             }
@@ -37,6 +38,7 @@ pipeline {
         stage('run test') {
             steps {
                 sh(script: """
+                chmod 777 tests/test_sample.py
                 pytest ./tests/test_sample.py
                 """)
             }
