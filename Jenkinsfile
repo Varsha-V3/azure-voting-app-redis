@@ -7,9 +7,15 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
-         stage('Create file') {
+         stage('Docker build') {
             steps {
-                writeFile file: 'testfile.txt', text: 'Hare Krishna'
+                sh(script: 'docker images -a')
+                sh(script: """
+                cd azure-vote/
+                docker images -a
+                docker build jenkins-pipeline .
+                cd ..
+                """)
             }
         }
     }
