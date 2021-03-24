@@ -38,7 +38,7 @@ pipeline {
         stage('run test') {
             steps {
                 sh(script: """
-                python3.6 -m pip install pytest
+                pip install pytest
                 chmod 777 tests/test_sample.py
                 pytest ./tests/test_sample.py
                 """)
