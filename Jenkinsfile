@@ -18,5 +18,35 @@ pipeline {
                 """)
             }
         }
+        stage('start test') {
+            steps {
+                sh(script: """
+                docker-compose up -d
+                ./scripts/test_container.sh
+                """)
+            }
+            post{
+                success{
+                    echo "success app start"
+                }
+                failure{
+                     echo "failure app start"
+                }
+            }
+        }
+        stage('run test') {
+            steps {
+                sh(script: """
+                pytest ./tests/test_sample.py
+                """)
+            }
+        }
+        stage('stop test') {
+            steps {
+                sh(script: """
+                docker-compose down
+                """)
+            }
+        }
     }
 }
