@@ -38,7 +38,8 @@ pipeline {
         stage('run test') {
             steps {
                 sh(script: """
-                pip install pytest
+                python -V
+                pip3 install pytest
                 chmod 777 tests/test_sample.py
                 pytest ./tests/test_sample.py
                 """)
